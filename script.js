@@ -1,282 +1,267 @@
 document.addEventListener('DOMContentLoaded', () => {
-    const sections = document.querySelectorAll('section');
-    const reveals = document.querySelectorAll('.reveal');
-    const nav = document.querySelector('nav');
-    const hamburger = document.querySelector('.hamburger');
-    const navLinks = document.querySelector('.nav-links');
-    const navLinkItems = document.querySelectorAll('.nav-links a');
-    const scrollToTop = document.querySelector('.scroll-to-top');
-    const scrollProgress = document.querySelector('.scroll-progress');
+  /* ===== ELEMENTOS ===== */
+  const body = document.body;
+  const nav = document.querySelector('.nav');
+  const navToggle = document.getElementById('navToggle');
+  const navMenu = document.getElementById('navMenu');
+  const navLinks = document.querySelectorAll('.nav-link');
+  const backToTop = document.getElementById('backToTop');
+  const progressBar = document.querySelector('.progress-bar');
+  const sections = document.querySelectorAll('[data-theme]');
+  
+  /* ===== PROGRESS BAR ===== */
+  window.addEventListener('scroll', () => {
+    const h = document.documentElement.scrollHeight - window.innerHeight;
+    progressBar.style.width = `${(window.scrollY / h) * 100}%`;
+  });
+  
+  /* ===== NAV SCROLL ===== */
+  window.addEventListener('scroll', () => {
+    nav.classList.toggle('scrolled', window.scrollY > 100);
+  });
+  
+  /* ===== MENU MOBILE ===== */
+  navToggle.addEventListener('click', () => {
+    navToggle.classList.toggle('active');
+    navMenu.classList.toggle('active');
+    body.style.overflow = navMenu.classList.contains('active') ? 'hidden' : '';
+  });
+  
+  navLinks.forEach(link => {
+    link.addEventListener('click', e => {
+      e.preventDefault();
+      const target = document.querySelector(link.getAttribute('href'));
+      if (!target) return;
+      navToggle.classList.remove('active');
+      navMenu.classList.remove('active');
+      body.style.overflow = '';
+      window.scrollTo({
+        top: target.offsetTop - 100,
+        behavior: 'smooth'
+      });
+    });
+  });
+  
+  /* ===== BACK TO TOP ===== */
+  window.addEventListener('scroll', () => {
+    backToTop.classList.toggle('visible', window.scrollY > 600);
+  });
+  
+  backToTop.addEventListener('click', () => {
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  });
+  
+  /* ===== TROCA DE TEMA SEM BUGS ===== */
+  let currentTheme = 'default';
+  let lastChangeTime = 0;
+  const THEME_COOLDOWN = 300; // Cooldown de 300ms para evitar trocas rápidas
+  
+  // Mapa de seções para temas
+  const sectionThemeMap = new Map();
+  sections.forEach(section => {
+    const theme = section.dataset.theme;
+    if (theme) {
+      sectionThemeMap.set(section, theme);
+    }
+  });
+  
+  const changeTheme = (newTheme) => {
+    const now = Date.now();
     
-    // CURSOR muito foda (nem tanto, mas tá aí)
-    const cursorDot = document.querySelector('.cursor-dot');
-    const cursorOutline = document.querySelector('.cursor-outline');
-    
-    if (window.innerWidth > 900) {
-        window.addEventListener('mousemove', (e) => {
-            cursorDot.style.left = `${e.clientX}px`;
-            cursorDot.style.top = `${e.clientY}px`;
-            cursorOutline.animate({
-                left: `${e.clientX}px`,
-                top: `${e.clientY}px`
-            }, { duration: 400, fill: 'forwards' });
-        });
-        
-        document.querySelectorAll('a, button, .stat-card, .img-wrapper').forEach(el => {
-            el.addEventListener('mouseenter', () => {
-                cursorDot.style.transform = 'scale(1.8)';
-                cursorOutline.style.transform = 'scale(1.4)';
-            });
-            el.addEventListener('mouseleave', () => {
-                cursorDot.style.transform = 'scale(1)';
-                cursorOutline.style.transform = 'scale(1)';
-            });
-        });
+    // Evita trocas muito rápidas
+    if (newTheme === currentTheme || (now - lastChangeTime) < THEME_COOLDOWN) {
+      return;
     }
     
-    // PARTICLES
-    const canvas = document.getElementById('particle-canvas');
-    const ctx = canvas.getContext('2d');
-    canvas.width = window.innerWidth;
-    canvas.height = window.innerHeight;
-    let particlesArray = [];
-    const numberOfParticles = 35;
+    lastChangeTime = now;
+    currentTheme = newTheme;
     
-    class Particle {
-        constructor() {
-            this.x = Math.random() * canvas.width;
-            this.y = Math.random() * canvas.height;
-            this.size = Math.random() * 1.5 + 0.8;
-            this.speedX = Math.random() * 0.4 - 0.2;
-            this.speedY = Math.random() * 0.4 - 0.2;
-        }
-        update() {
-            this.x += this.speedX;
-            this.y += this.speedY;
-            if (this.x > canvas.width || this.x < 0) this.speedX *= -1;
-            if (this.y > canvas.height || this.y < 0) this.speedY *= -1;
-        }
-        draw() {
-            ctx.fillStyle = 'rgba(255, 255, 255, 0.4)';
-            ctx.beginPath();
-            ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
-            ctx.fill();
-        }
+    // Muda o tema imediatamente (CSS faz a transição suave)
+    body.setAttribute('data-theme', newTheme);
+    
+    console.log('✨ Tema mudou para:', newTheme);
+  };
+  
+  // Observador de seções com configuração otimizada
+  const themeObserver = new IntersectionObserver(entries => {
+    // Encontra a seção mais visível
+    let mostVisible = null;
+    let maxRatio = 0;
+    
+    entries.forEach(entry => {
+      if (entry.intersectionRatio > maxRatio) {
+        maxRatio = entry.intersectionRatio;
+        mostVisible = entry;
+      }
+    });
+    
+    // Só muda tema se a seção estiver suficientemente visível
+    if (mostVisible && mostVisible.intersectionRatio > 0.3) {
+      const theme = sectionThemeMap.get(mostVisible.target);
+      if (theme) {
+        changeTheme(theme);
+      }
     }
+  }, { 
+    threshold: [0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9, 1.0],
+    rootMargin: '-15% 0px -15% 0px'
+  });
+  
+  // Observa todas as seções
+  sections.forEach(sec => themeObserver.observe(sec));
+  
+  // Define tema inicial baseado na primeira seção visível
+  const checkInitialTheme = () => {
+    const scrollY = window.scrollY + window.innerHeight / 2;
     
-    function initParticles() {
-        particlesArray = [];
-        for (let i = 0; i < numberOfParticles; i++) {
-            particlesArray.push(new Particle());
+    for (let section of sections) {
+      const rect = section.getBoundingClientRect();
+      const sectionTop = rect.top + window.scrollY;
+      const sectionBottom = sectionTop + rect.height;
+      
+      if (scrollY >= sectionTop && scrollY <= sectionBottom) {
+        const theme = section.dataset.theme;
+        if (theme && theme !== currentTheme) {
+          body.setAttribute('data-theme', theme);
+          currentTheme = theme;
+          console.log('🎨 Tema inicial:', theme);
         }
+        break;
+      }
     }
-    
-    function animateParticles() {
-        ctx.clearRect(0, 0, canvas.width, canvas.height);
-        for (let i = 0; i < particlesArray.length; i++) {
-            particlesArray[i].update();
-            particlesArray[i].draw();
-            for (let j = i; j < particlesArray.length; j++) {
-                const dx = particlesArray[i].x - particlesArray[j].x;
-                const dy = particlesArray[i].y - particlesArray[j].y;
-                const distance = Math.sqrt(dx * dx + dy * dy);
-                if (distance < 80) {
-                    ctx.strokeStyle = `rgba(255, 255, 255, ${0.15 - distance / 600})`;
-                    ctx.lineWidth = 0.8;
-                    ctx.beginPath();
-                    ctx.moveTo(particlesArray[i].x, particlesArray[i].y);
-                    ctx.lineTo(particlesArray[j].x, particlesArray[j].y);
-                    ctx.stroke();
-                }
-            }
-        }
-        requestAnimationFrame(animateParticles);
+  };
+  
+  checkInitialTheme();
+  
+  /* ===== FADE IN COM STAGGER ===== */
+  const fadeObserver = new IntersectionObserver(entries => {
+    entries.forEach((entry) => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('visible');
+        fadeObserver.unobserve(entry.target);
+      }
+    });
+  }, { 
+    threshold: 0.1,
+    rootMargin: '0px 0px -80px 0px'
+  });
+  
+  document.querySelectorAll(
+    '.hero-content, .hero-visual, .timeline-content, .timeline-visual, .stat-item, .info-box'
+  ).forEach(el => fadeObserver.observe(el));
+  
+  /* ===== SMOOTH SCROLL PARA LINKS DE NAVEGAÇÃO ===== */
+  document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+    anchor.addEventListener('click', function (e) {
+      e.preventDefault();
+      const target = document.querySelector(this.getAttribute('href'));
+      if (target) {
+        const offset = 100;
+        const targetPosition = target.offsetTop - offset;
+        window.scrollTo({
+          top: targetPosition,
+          behavior: 'smooth'
+        });
+      }
+    });
+  });
+  
+  /* ===== PARALLAX SUAVE NAS IMAGENS ===== */
+  const images = document.querySelectorAll('.timeline-visual img, .hero-img-frame img');
+  let ticking = false;
+  
+  const updateParallax = () => {
+    images.forEach(img => {
+      const rect = img.getBoundingClientRect();
+      const scrollPercent = (window.innerHeight - rect.top) / (window.innerHeight + rect.height);
+      
+      if (scrollPercent >= -0.2 && scrollPercent <= 1.2) {
+        const translateY = (scrollPercent - 0.5) * 15;
+        img.style.transform = `translateY(${translateY}px)`;
+      }
+    });
+    ticking = false;
+  };
+  
+  window.addEventListener('scroll', () => {
+    if (!ticking) {
+      window.requestAnimationFrame(updateParallax);
+      ticking = true;
     }
+  });
+  
+  /* ===== CURSOR GLOW EFFECT ANIMADO (DESKTOP) ===== */
+  if (window.innerWidth > 1024) {
+    const cursor = document.createElement('div');
+    cursor.style.cssText = `
+      position: fixed;
+      width: 400px;
+      height: 400px;
+      border-radius: 50%;
+      background: radial-gradient(circle, var(--accent-glow) 0%, transparent 65%);
+      pointer-events: none;
+      z-index: 9999;
+      opacity: 0;
+      transition: opacity 0.5s ease, background 1.5s ease;
+      mix-blend-mode: screen;
+      will-change: transform;
+    `;
+    document.body.appendChild(cursor);
     
-    initParticles();
-    animateParticles();
+    let mouseX = 0, mouseY = 0;
+    let cursorX = 0, cursorY = 0;
+    let isMoving = false;
+    let moveTimeout;
     
-    window.addEventListener('resize', () => {
-        canvas.width = window.innerWidth;
-        canvas.height = window.innerHeight;
-        initParticles();
+    document.addEventListener('mousemove', (e) => {
+      mouseX = e.clientX;
+      mouseY = e.clientY;
+      cursor.style.opacity = '0.12';
+      
+      isMoving = true;
+      clearTimeout(moveTimeout);
+      moveTimeout = setTimeout(() => {
+        isMoving = false;
+      }, 100);
     });
     
-    // SCROLL PROGRESS
-    window.addEventListener('scroll', () => {
-        const winScroll = document.body.scrollTop || document.documentElement.scrollTop;
-        const height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
-        const scrolled = (winScroll / height) * 100;
-        scrollProgress.style.width = scrolled + '%';
+    document.addEventListener('mouseleave', () => {
+      cursor.style.opacity = '0';
     });
     
-    // THEME OBSERVER
-    const themeObserver = new IntersectionObserver((entries) => {
-        entries.forEach(entry => {
-            if (entry.isIntersecting) {
-                const theme = entry.target.dataset.sectionTheme;
-                document.body.setAttribute('data-theme', theme);
-                updateShapeColors(theme);
-            }
-        });
-    }, { 
-        threshold: 0.2,  
-        rootMargin: '0px'  
-    });
-    
-    sections.forEach(section => themeObserver.observe(section));
-    
-    // REVEAL
-    const revealObserver = new IntersectionObserver((entries) => {
-        entries.forEach(entry => {
-            if (entry.isIntersecting) {
-                entry.target.classList.add('active');
-                if (entry.target.classList.contains('stat-card')) {
-                    animateNumber(entry.target);
-                }
-            }
-        });
-    }, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
-    
-    reveals.forEach(reveal => revealObserver.observe(reveal));
-    
-    // SMOOTH SCROLL
-    navLinkItems.forEach(link => {
-        link.addEventListener('click', (e) => {
-            e.preventDefault();
-            const targetId = link.getAttribute('href');
-            const target = document.querySelector(targetId);
-            if (target) {
-                navLinks.classList.remove('active');
-                hamburger.classList.remove('active');
-                document.body.style.overflow = '';
-                const offset = 60;
-                const targetPosition = target.offsetTop - offset;
-                window.scrollTo({ top: targetPosition, behavior: 'smooth' });
-            }
-        });
-    });
-    
-    // MENU MOBILE
-    if (hamburger) {
-        hamburger.addEventListener('click', () => {
-            hamburger.classList.toggle('active');
-            navLinks.classList.toggle('active');
-            if (navLinks.classList.contains('active')) {
-                document.body.style.overflow = 'hidden';
-            } else {
-                document.body.style.overflow = '';
-            }
-        });
+    function animateCursor() {
+      const ease = 0.08;
+      cursorX += (mouseX - cursorX) * ease;
+      cursorY += (mouseY - cursorY) * ease;
+      cursor.style.transform = `translate(${cursorX - 200}px, ${cursorY - 200}px) scale(${isMoving ? 1.1 : 1})`;
+      requestAnimationFrame(animateCursor);
     }
+    animateCursor();
+  }
+  
+  /* ===== ANIMAÇÃO DE ENTRADA INICIAL ===== */
+  setTimeout(() => {
+    const heroContent = document.querySelector('.hero-content');
+    const heroVisual = document.querySelector('.hero-visual');
     
-    document.addEventListener('click', (e) => {
-        if (navLinks.classList.contains('active') && 
-            !navLinks.contains(e.target) && 
-            !hamburger.contains(e.target)) {
-            navLinks.classList.remove('active');
-            hamburger.classList.remove('active');
-            document.body.style.overflow = '';
-        }
-    });
+    if (heroContent) heroContent.classList.add('visible');
     
-    // NAVBAR SCROLL
-    window.addEventListener('scroll', () => {
-        const currentScroll = window.pageYOffset;
-        if (currentScroll > 80) {
-            nav.classList.add('scrolled');
-        } else {
-            nav.classList.remove('scrolled');
-        }
-        if (currentScroll > 400) {
-            scrollToTop.classList.add('visible');
-        } else {
-            scrollToTop.classList.remove('visible');
-        }
-    });
-    
-    // SCROLL TO TOP
-    scrollToTop.addEventListener('click', () => {
-        window.scrollTo({ top: 0, behavior: 'smooth' });
-    });
-    
-    // CORES - AUDI
-    function updateShapeColors(theme) {
-        const shapes = document.querySelectorAll('.geo-bg .shape');
-        const colorMap = {
-            'default': { tri: '#bbff00', circ: '#062fc5', squa: '#ffcc00' },
-            'trident': { tri: '#3b82f6', circ: '#3b82f6', squa: '#dc2626' },
-            'invicta': { tri: '#fbbf24', circ: '#fbbf24', squa: '#fbbf24' },
-            'sauber': { tri: '#22c55e', circ: '#22c55e', squa: '#22c55e' },
-            'audi': { tri: '#ef4444', circ: '#696d74', squa: '#ef4444' }
-        };
-        const colors = colorMap[theme] || colorMap['default'];
-        shapes.forEach(shape => {
-            if (shape.classList.contains('tri')) shape.style.background = colors.tri;
-            else if (shape.classList.contains('circ')) shape.style.background = colors.circ;
-            else if (shape.classList.contains('squa')) shape.style.background = colors.squa;
-        });
-    }
-    
-    // Inicializar cores
-    updateShapeColors('default');
-    
-    // ANIMAR NÚMEROS
-    function animateNumber(card) {
-        const numberElement = card.querySelector('.stat-number');
-        if (!numberElement || numberElement.dataset.animated) return;
-        const targetValue = numberElement.dataset.target;
-        if (!targetValue) return;
-        const targetNumber = parseFloat(targetValue);
-        if (isNaN(targetNumber)) return;
-        numberElement.dataset.animated = 'true';
-        const duration = 1600;
-        const steps = 50;
-        const increment = targetNumber / steps;
-        let current = 0;
-        let step = 0;
-        const timer = setInterval(() => {
-            current += increment;
-            step++;
-            if (step >= steps) {
-                numberElement.textContent = targetValue;
-                clearInterval(timer);
-            } else {
-                if (targetValue.includes('.')) {
-                    numberElement.textContent = current.toFixed(1);
-                } else {
-                    numberElement.textContent = Math.floor(current);
-                }
-            }
-        }, duration / steps);
-    }
-    
-    // PARALLAX
-    window.addEventListener('scroll', () => {
-        const scrolled = window.pageYOffset;
-        const shapes = document.querySelectorAll('.geo-bg .shape');
-        shapes.forEach((shape, index) => {
-            const speed = (index + 1) * 0.25;
-            const yPos = -(scrolled * speed * 0.08);
-            shape.style.transform = `translateY(${yPos}px)`;
-        });
-    });
-    
-    // CONSOLE
-    console.log('%c🏎️ GABRIEL BORTOLETO - F1 DRIVER', 'color: #bbff00; font-size: 20px; font-weight: 900; text-shadow: 0 0 15px #bbff00; padding: 15px;');
-    console.log('%c🇧🇷 ORGULHO BRASILEIRO NA FÓRMULA 1', 'color: #ffcc00; font-size: 13px; font-weight: 700; padding: 8px;');
-    console.log('%c💻 @jotacazinho', 'color: #062fc5; font-size: 11px; padding: 8px;');
+    setTimeout(() => {
+      if (heroVisual) heroVisual.classList.add('visible');
+    }, 150);
+  }, 100);
+  
+  /* ===== PERFORMANCE: THROTTLE DE SCROLL ===== */
+  let scrollTimeout;
+  let lastScrollTop = 0;
+  
+  window.addEventListener('scroll', () => {
+    clearTimeout(scrollTimeout);
+    scrollTimeout = setTimeout(() => {
+      lastScrollTop = window.scrollY;
+    }, 50);
+  }, { passive: true });
+  
+  console.log('🏎️ Site do Gabriel Bortoleto carregado!');
+  console.log('✨ Sistema de temas otimizado ativado');
 });
-
-let resizeTimer;
-window.addEventListener('resize', () => {
-    document.body.classList.add('resize-animation-stopper');
-    clearTimeout(resizeTimer);
-    resizeTimer = setTimeout(() => {
-        document.body.classList.remove('resize-animation-stopper');
-    }, 300);
-});
-
-const style = document.createElement('style');
-style.textContent = `.resize-animation-stopper * { animation: none !important; transition: none !important; }`;
-document.head.appendChild(style);

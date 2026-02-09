@@ -3,311 +3,485 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Bortoleto.</title>
-    <meta name="description" content="A incrível jornada de Gabriel Bortoleto, o jovem piloto brasileiro que conquistou F3, F2 e chegou à Fórmula 1.">
-    <meta name="keywords" content="Gabriel Bortoleto, F1, Formula 1, Brasil, Piloto Brasileiro, Audi, Sauber">
-    <meta property="og:title" content="Gabriel Bortoleto | A Jornada para a F1">
-    <meta property="og:description" content="Conheça a trajetória do piloto brasileiro que está revolucionando o automobilismo mundial.">
-    <meta property="og:type" content="website">
+    <title>Gabriel Bortoleto | F1 Driver 🏎️</title>
     <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🏎️</text></svg>">
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700;900&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Rajdhani:wght@300;400;500;600;700&family=Orbitron:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="style.css">
 </head>
 <body data-theme="default">
-
-    <!-- cursor bola -->
-    <div class="cursor-dot"></div>
-    <div class="cursor-outline"></div>
-
-    <!-- particulas -->
-    <canvas id="particle-canvas"></canvas>
-
-    <div class="geo-bg">
-        <div class="shape tri"></div>
-        <div class="shape circ"></div>
-        <div class="shape squa"></div>
+    
+    <!-- Progress Bar -->
+    <div class="progress-bar"></div>
+    
+    <!-- Animated Background -->
+    <div class="animated-bg">
+        <div class="grid-lines"></div>
+        <div class="moving-particles"></div>
     </div>
-
-    <!-- barra daora -->
-    <div class="scroll-progress"></div>
-
-    <nav>
-        <div class="logo">
-            <span class="logo-icon">🏎️</span>
-            Gabriel <span>Bortoleto</span>
-        </div>
-        <ul class="nav-links">
-            <li><a href="#home">Sobre</a></li>
-            <li><a href="#f3">F3 2023</a></li>
-            <li><a href="#f2">F2 2024</a></li>
-            <li><a href="#f1-debut">F1 2025</a></li>
-            <li><a href="#audi">F1 2026</a></li>
-        </ul>
-        <div class="hamburger">
-            <span></span>
-            <span></span>
-            <span></span>
+    
+    <!-- Navigation -->
+    <nav class="nav">
+        <div class="nav-wrapper">
+            <div class="nav-logo">
+                <div class="logo-icon">🏎️</div>
+                <div class="logo-text">
+                    <span class="name">GABRIEL</span>
+                    <span class="surname">BORTOLETO</span>
+                </div>
+            </div>
+            
+            <div class="nav-menu" id="navMenu">
+                <a href="#hero" class="nav-link">INÍCIO</a>
+                <a href="#f4" class="nav-link">F4 2020</a>
+                <a href="#fregional" class="nav-link">F-REGIONAL 2021/2022</a>
+                <a href="#f3" class="nav-link">F3 2023 </a>
+                <a href="#f2" class="nav-link">F2 2024</a>
+                <a href="#f1" class="nav-link">F1 2025</a>
+                <a href="#audi" class="nav-link">F1 2026</a>
+            </div>
+            
+            <button class="nav-toggle" id="navToggle">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
         </div>
     </nav>
-
-    <section id="home" data-section-theme="default">
+    
+    <!-- Hero Section -->
+    <section id="hero" class="section hero-section" data-theme="default">
         <div class="container">
-            <div class="content reveal">
-                <div class="badge">
-                    <span class="badge-flag">🇧🇷</span>
-                    <span class="badge-text">Piloto Brasileiro</span>
-                </div>
-                <h2 class="subtitle">O Futuro do Brasil</h2>
-                <h1>Gabriel <br><span class="highlight">Bortoleto</span></h1>
-                <p>Nascido em São Paulo, Gabriel é a nova esperança brasileira no automobilismo mundial. Com um estilo técnico e agressivo, escalou as categorias de base com maestria.</p>
-                <div class="stats-grid">
-                    <div class="stat-card reveal">
-                        <span class="stat-number" data-target="21">0</span>
-                        <span class="stat-label">Anos de Idade</span>
+            <div class="hero-grid">
+                <div class="hero-content">
+                    <div class="flag-badge">🇧🇷 BRASIL</div>
+                    <h1 class="hero-title">
+                        <span class="title-line">GABRIEL</span>
+                        <span class="title-line glow">BORTOLETO</span>
+                    </h1>
+                    <p class="hero-desc">Campeão F3 2023 | Campeão F2 2024 | Piloto F1 2025 pela Audi. De São Paulo para o grid da elite do automobilismo mundial.</p>
+                    
+                    <div class="hero-stats-row">
+                        <div class="mini-stat">
+                            <div class="mini-stat-num">21</div>
+                            <div class="mini-stat-label">ANOS</div>
+                        </div>
+                        <div class="mini-stat">
+                            <div class="mini-stat-num">2</div>
+                            <div class="mini-stat-label">TÍTULOS</div>
+                        </div>
+                        <div class="mini-stat">
+                            <div class="mini-stat-num">2025</div>
+                            <div class="mini-stat-label">ESTREIA F1</div>
+                        </div>
                     </div>
-                    <div class="stat-card reveal">
-                        <span class="stat-number" data-target="2">0</span>
-                        <span class="stat-label">Títulos Consecutivos</span>
-                    </div>
-                </div>
-                <div class="cta-buttons">
-                    <a href="#f3" class="btn-primary">
-                        <span>Ver Conquistas</span>
+                    
+                    <a href="#f3" class="hero-btn">
+                        <span>VER CONQUISTAS</span>
                         <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                            <line x1="5" y1="12" x2="19" y2="12"></line>
-                            <polyline points="12 5 19 12 12 19"></polyline>
+                            <path d="M5 12h14M12 5l7 7-7 7"/>
                         </svg>
                     </a>
                 </div>
+                
+                <div class="hero-visual">
+                    <div class="hero-img-frame">
+                        <img src="naogrita.webp" alt="Gabriel Bortoleto">
+                        <div class="img-glow-effect"></div>
+                    </div>
+                </div>
             </div>
-            <div class="visuals reveal">
-                <div class="img-wrapper main-img">
-                    <div class="img-glow"></div>
-                    <img src="naogrita.webp" alt="Gabriel Bortoleto">
-                    <div class="img-overlay">
-                        <div class="overlay-stat">
-                            <span class="overlay-number">Gabriel Bortoleto</span>
-                            <span class="overlay-label">Piloto e jóia do automobilismo nacional</span>
+        </div>
+    </section>
+    
+    <!-- F4 2020 - PREMA -->
+    <section id="f4" class="section timeline-section" data-theme="prema">
+        <div class="container">
+            <div class="timeline-header">
+                <div class="year-badge">2020</div>
+                <h2 class="section-title">FÓRMULA 4 ITALIANA</h2>
+                <p class="section-subtitle">PRIMEIRA <span class="highlight">VITÓRIA</span></p>
+            </div>
+            
+            <div class="timeline-grid">
+                <div class="timeline-visual with-logo">
+                    <img src="bortoletof4ita.jpg" alt="F4 2020">
+                    <img src="prema.jpeg" alt="Prema Racing" class="team-logo">
+                </div>
+                
+                <div class="timeline-content">
+                    <p class="timeline-text">Estreia na Prema Powerteam ao lado de Sebastián Montoya, Gabriele Minì e Dino Beganovic. Primeiro pódio em Mugello com segundo e terceiro lugar, seguido de uma <strong>vitória histórica</strong> na quarta rodada — seu primeiro triunfo em monopostos.</p>
+                    
+                    <div class="stats-compact">
+                        <div class="stat-item">
+                            <div class="stat-ico">🏆</div>
+                            <div class="stat-info">
+                                <div class="stat-val">5º</div>
+                                <div class="stat-lbl">Colocação</div>
+                            </div>
+                        </div>
+                        <div class="stat-item">
+                            <div class="stat-ico">🏁</div>
+                            <div class="stat-info">
+                                <div class="stat-val">1</div>
+                                <div class="stat-lbl">Vitória</div>
+                            </div>
+                        </div>
+                        <div class="stat-item">
+                            <div class="stat-ico">🥇</div>
+                            <div class="stat-info">
+                                <div class="stat-val">5</div>
+                                <div class="stat-lbl">Pódios</div>
+                            </div>
+                        </div>
+                        <div class="stat-item">
+                            <div class="stat-ico">📊</div>
+                            <div class="stat-info">
+                                <div class="stat-val">157</div>
+                                <div class="stat-lbl">Pontos</div>
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
     </section>
-
-    <section id="f3" data-section-theme="trident">
+    
+    <!-- F-Regional - FA RACING -->
+    <section id="fregional" class="section timeline-section reverse" data-theme="fa-racing">
         <div class="container">
-            <div class="visuals reveal">
-                <div class="img-wrapper">
-                    <div class="img-glow"></div>
+            <div class="timeline-header">
+                <div class="year-badge">2021-2022</div>
+                <h2 class="section-title">FÓRMULA REGIONAL</h2>
+                <p class="section-subtitle">EVOLUÇÃO <span class="highlight">CONSTANTE</span></p>
+            </div>
+            
+            <div class="timeline-grid">
+                <div class="timeline-content">
+                    <p class="timeline-text">2021: Estreia pela FA Racing, 15º lugar com 44 pontos e primeiro pódio na Áustria. 2022: Transferência para R-ace GP e salto para <strong>6º lugar geral</strong> com 2 vitórias, 5 pódios e 176 pontos, pontuando em 16 das 20 etapas.</p>
+                    
+                    <div class="stats-compact">
+                        <div class="stat-item">
+                            <div class="stat-ico">📈</div>
+                            <div class="stat-info">
+                                <div class="stat-val">15º→6º</div>
+                                <div class="stat-lbl">Evolução</div>
+                            </div>
+                        </div>
+                        <div class="stat-item">
+                            <div class="stat-ico">🏁</div>
+                            <div class="stat-info">
+                                <div class="stat-val">2</div>
+                                <div class="stat-lbl">Vitórias 2022</div>
+                            </div>
+                        </div>
+                        <div class="stat-item">
+                            <div class="stat-ico">🥇</div>
+                            <div class="stat-info">
+                                <div class="stat-val">5</div>
+                                <div class="stat-lbl">Pódios 2022</div>
+                            </div>
+                        </div>
+                        <div class="stat-item">
+                            <div class="stat-ico">📊</div>
+                            <div class="stat-info">
+                                <div class="stat-val">176</div>
+                                <div class="stat-lbl">Pontos 2022</div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="info-box">
+                        <strong>F-Regional Asiática 2022:</strong> Venceu corrida 2 de Abu Dhabi, somando pontos em 5 das 6 corridas disputadas.
+                    </div>
+                </div>
+                
+                <div class="timeline-visual with-logo">
+                    <img src="bortoletofr.jpg" alt="F-Regional">
+                    <img src="faracing.png" alt="FA Racing" class="team-logo">
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- F3 2023 -->
+    <section id="f3" class="section timeline-section champion-section" data-theme="trident">
+        <div class="container">
+            <div class="timeline-header">
+                <div class="year-badge champion-badge">⭐ 2023 ⭐</div>
+                <h2 class="section-title">FIA FORMULA 3 CHAMPIONSHIP</h2>
+                <p class="section-subtitle">DOMINÂNCIA <span class="highlight">TOTAL</span></p>
+            </div>
+            
+            <div class="timeline-grid">
+                <div class="timeline-visual with-logo">
                     <img src="gabif3.avif" alt="F3 2023">
+                    <a href="https://en.wikipedia.org/wiki/Trident_Motorsport" target="_blank" class="team-logo">
+                        <img src="trident.png" alt="Trident">
+                    </a>
                 </div>
-                <div class="team-logo">
-                    <img src="trident.png" alt="Trident Logo">
-                </div>
-            </div>
-            <div class="content reveal">
-                <div class="year-badge">2023</div>
-                <h2 class="subtitle">FIA Formula 3 Championship</h2>
-                <h1>Dominância <span class="highlight">Azul</span></h1>
-                <p>Em sua estreia na F3 pela Trident, Gabriel chocou o mundo. Com consistência impecável, garantiu o título antecipadamente e mostrou porque é considerado um dos maiores talentos de sua geração.</p>
-                <div class="stats-grid">
-                    <div class="stat-card reveal">
-                        <div class="stat-icon">🏆</div>
-                        <span class="stat-number">Campeão</span>
-                        <span class="stat-label">Posição Final</span>
-                    </div>
-                    <div class="stat-card reveal">
-                        <div class="stat-icon">🏁</div>
-                        <span class="stat-number" data-target="2">0</span>
-                        <span class="stat-label">Vitórias</span>
-                    </div>
-                    <div class="stat-card reveal">
-                        <div class="stat-icon">🥇</div>
-                        <span class="stat-number" data-target="6">0</span>
-                        <span class="stat-label">Pódios</span>
-                    </div>
-                    <div class="stat-card reveal">
-                        <div class="stat-icon">📊</div>
-                        <span class="stat-number" data-target="164">0</span>
-                        <span class="stat-label">Pontos</span>
+                
+                <div class="timeline-content">
+                    <p class="timeline-text">Após testes em Jerez, tornou-se o <strong>primeiro piloto anunciado</strong> para 2023. Venceu no Barém e Austrália (com pole), liderando desde a rodada inicial. Com 13 corridas consecutivas pontuando, chegou em Monza precisando apenas que rivais não fizessem pole. Goethe levou a pole e Bortoleto foi <strong>campeão em sua estreia</strong> — 164 pontos, 45 à frente do vice!</p>
+                    
+                    <div class="stats-compact">
+                        <div class="stat-item champion-stat">
+                            <div class="stat-ico">🏆</div>
+                            <div class="stat-info">
+                                <div class="stat-val">CAMPEÃO</div>
+                                <div class="stat-lbl">Estreia Histórica</div>
+                            </div>
+                        </div>
+                        <div class="stat-item">
+                            <div class="stat-ico">🏁</div>
+                            <div class="stat-info">
+                                <div class="stat-val">2</div>
+                                <div class="stat-lbl">Vitórias</div>
+                            </div>
+                        </div>
+                        <div class="stat-item">
+                            <div class="stat-ico">🥇</div>
+                            <div class="stat-info">
+                                <div class="stat-val">6</div>
+                                <div class="stat-lbl">Pódios</div>
+                            </div>
+                        </div>
+                        <div class="stat-item">
+                            <div class="stat-ico">📊</div>
+                            <div class="stat-info">
+                                <div class="stat-val">164</div>
+                                <div class="stat-lbl">Pontos (+45)</div>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
     </section>
-
-    <section id="f2" data-section-theme="invicta">
+    
+    <!-- F2 2024 -->
+    <section id="f2" class="section timeline-section reverse champion-section" data-theme="invicta">
         <div class="container">
-            <div class="content reveal">
-                <div class="year-badge">2024</div>
-                <h2 class="subtitle">FIA Formula 2 Championship</h2>
-                <h1>Rei da <span class="highlight">Categoria</span></h1>
-                <p>Pela Invicta Racing, Bortoleto fez o impensável: sagrou-se <strong>Campeão</strong> no ano de estreia, superando veteranos e consolidando-se como o próximo grande nome da F1.</p>
-                <div class="stats-grid">
-                    <div class="stat-card reveal">
-                        <div class="stat-icon">🏆</div>
-                        <span class="stat-number">Campeão</span>
-                        <span class="stat-label">Posição Final</span>
+            <div class="timeline-header">
+                <div class="year-badge champion-badge">⭐ 2024 ⭐</div>
+                <h2 class="section-title">FIA FORMULA 2 CHAMPIONSHIP</h2>
+                <p class="section-subtitle">DO ÚLTIMO AO <span class="highlight">PRIMEIRO</span></p>
+            </div>
+            
+            <div class="timeline-grid">
+                <div class="timeline-content">
+                    <p class="timeline-text">Pela Invicta Racing, protagonizou uma das temporadas mais dramáticas da F2. Conquistou primeira vitória na Áustria, viveu a lendária recuperação de Monza (do último ao primeiro), assumiu liderança em Baku e sagrou-se <strong>Campeão em estreia</strong> após duelo épico com Hadjar em Abu Dhabi.</p>
+                    
+                    <div class="stats-compact">
+                        <div class="stat-item champion-stat">
+                            <div class="stat-ico">🏆</div>
+                            <div class="stat-info">
+                                <div class="stat-val">CAMPEÃO</div>
+                                <div class="stat-lbl">Estreia Épica</div>
+                            </div>
+                        </div>
+                        <div class="stat-item">
+                            <div class="stat-ico">🏁</div>
+                            <div class="stat-info">
+                                <div class="stat-val">2</div>
+                                <div class="stat-lbl">Vitórias</div>
+                            </div>
+                        </div>
+                        <div class="stat-item">
+                            <div class="stat-ico">🥇</div>
+                            <div class="stat-info">
+                                <div class="stat-val">8</div>
+                                <div class="stat-lbl">Pódios</div>
+                            </div>
+                        </div>
+                        <div class="stat-item">
+                            <div class="stat-ico">📊</div>
+                            <div class="stat-info">
+                                <div class="stat-val">214.5</div>
+                                <div class="stat-lbl">Pontos</div>
+                            </div>
+                        </div>
                     </div>
-                    <div class="stat-card reveal">
-                        <div class="stat-icon">🏁</div>
-                        <span class="stat-number" data-target="2">0</span>
-                        <span class="stat-label">Vitórias</span>
+                    
+                    <div class="info-box">
+                        <strong>MONZA:</strong> Último em ambas qualys. Recuperação épica na corrida principal — do último ao primeiro com estratégia perfeita e ajuda de safety car!
                     </div>
-                    <div class="stat-card reveal">
-                        <div class="stat-icon">🥇</div>
-                        <span class="stat-number" data-target="8">0</span>
-                        <span class="stat-label">Pódios</span>
-                    </div>
-                    <div class="stat-card reveal">
-                        <div class="stat-icon">📊</div>
-                        <span class="stat-number" data-target="214,5">0</span>
-                        <span class="stat-label">Pontos</span>
+                    <div class="info-box">
+                        <strong>ABU DHABI:</strong> Final empatado com 0.5 de vantagem. Segundo na sprint (+4 pts), segundo na corrida (Hadjar travou na largada). Campeão F2 com 214.5 pontos!
                     </div>
                 </div>
-            </div>
-            <div class="visuals reveal">
-                <div class="img-wrapper">
-                    <div class="img-glow"></div>
+                
+                <div class="timeline-visual with-logo">
                     <img src="gabif2.jpg" alt="F2 2024">
-                </div>
-                <div class="team-logo">
-                    <img src="invicta.png" alt="Invicta Logo">
+                    <a href="https://en.wikipedia.org/wiki/Invicta_Racing" target="_blank" class="team-logo">
+                        <img src="invicta.png" alt="Invicta">
+                    </a>
                 </div>
             </div>
         </div>
     </section>
-
-    <section id="f1-debut" data-section-theme="sauber">
+    
+    <!-- F1 2025 -->
+    <section id="f1" class="section timeline-section" data-theme="sauber">
         <div class="container">
-            <div class="visuals reveal">
-                <div class="img-wrapper">
-                    <div class="img-glow"></div>
-                    <img src="gabif1.jpg" alt="F1 Sauber">
-                </div>
-                <div class="team-logo">
-                    <img src="sauber.png" alt="Sauber Logo">
-                </div>
-            </div>
-            <div class="content reveal">
+            <div class="timeline-header">
                 <div class="year-badge">2025</div>
-                <h2 class="subtitle">FIA Fórmula 1 World Championship</h2>
-                <h1>Impacto <span class="highlight">IMEDIATO</span></h1>
-                <p>Correndo pela Kick Sauber, Gabriel extraiu o máximo do equipamento, pontuando regularmente e lutando de igual para igual com um dos pilotos mais experientes do grid.</p>
-                <div class="stats-grid">
-                    <div class="stat-card reveal">
-                        <div class="stat-icon">⭐</div>
-                        <span class="stat-number" data-target="19">0</span>
-                        <span class="stat-label">Pontos Conquistados</span>
+                <h2 class="section-title">FIA FÓRMULA 1 WORLD CHAMPIONSHIP</h2>
+                <p class="section-subtitle">ESTREIA NA <span class="highlight">ELITE</span></p>
+            </div>
+            
+            <div class="timeline-grid">
+                <div class="timeline-visual with-logo">
+                    <img src="gabif1.jpg" alt="F1 2025">
+                    <a href="https://en.wikipedia.org/wiki/Sauber_Motorsport" target="_blank" class="team-logo">
+                        <img src="sauber.png" alt="Sauber">
+                    </a>
+                </div>
+                
+                <div class="timeline-content">
+                    <p class="timeline-text">Anunciado pela Sauber em novembro de 2024, escolheu o #5 (usado por Vettel 2015-2022, seu número campeão F3). Empresariado por Fernando Alonso desde 2022 e ex-McLaren Driver Development. Estreou na Austrália batalhando com Hülkenberg, conquistou primeiros pontos na Áustria e teve melhor resultado na Hungria (6º).</p>
+                    
+                    <div class="stats-compact">
+                        <div class="stat-item">
+                            <div class="stat-ico">⭐</div>
+                            <div class="stat-info">
+                                <div class="stat-val">19</div>
+                                <div class="stat-lbl">Pontos</div>
+                            </div>
+                        </div>
+                        <div class="stat-item">
+                            <div class="stat-ico">⚡</div>
+                            <div class="stat-info">
+                                <div class="stat-val">15-15</div>
+                                <div class="stat-lbl">Qualys vs Hulk</div>
+                            </div>
+                        </div>
+                        <div class="stat-item">
+                            <div class="stat-ico">🎯</div>
+                            <div class="stat-info">
+                                <div class="stat-val">12-12</div>
+                                <div class="stat-lbl">Corridas</div>
+                            </div>
+                        </div>
+                        <div class="stat-item">
+                            <div class="stat-ico">🇧🇷</div>
+                            <div class="stat-info">
+                                <div class="stat-val">1º BR</div>
+                                <div class="stat-lbl">Desde 2017</div>
+                            </div>
+                        </div>
                     </div>
-                    <div class="stat-card reveal">
-                        <div class="stat-icon">⚡</div>
-                        <span class="stat-number">15 - 15</span>
-                        <span class="stat-label">Qualys vs Hulkenberg</span>
+                    
+                    <div class="info-box">
+                        <strong>GP ÁUSTRIA:</strong> Primeiros 4 pontos com 8º lugar — momento histórico da carreira!
                     </div>
-                    <div class="stat-card reveal">
-                        <div class="stat-icon">🎯</div>
-                        <span class="stat-number">12 - 12</span>
-                        <span class="stat-label">Sem Corridas Sprint</span>
+                    <div class="info-box">
+                        <strong>GP HUNGRIA:</strong> Melhor resultado (6º), largou 7º e segurou Stroll. Ficou após toque de recolher ajustando acerto com engenheiros.
                     </div>
-                    <div class="stat-card reveal">
-                        <div class="stat-icon">🇧🇷</div>
-                        <span class="stat-number">1º Brasileiro</span>
-                        <span class="stat-label">Desde 2017 com Felipe Massa.</span>
+                    <div class="info-box">
+                        <strong>GP BRASIL:</strong> Batida de 57g na Curva S do Senna durante sprint. Perdeu quali. Na corrida, fechado por Stroll, DNF. Final: 19º/21, 19 pontos.
                     </div>
                 </div>
             </div>
         </div>
     </section>
-
-    <section id="audi" data-section-theme="audi">
+    
+    <!-- Audi 2026 -->
+    <section id="audi" class="section timeline-section reverse future-section" data-theme="audi">
         <div class="container">
-            <div class="content reveal">
-                <div class="year-badge future">2026+</div>
-                <h2 class="subtitle">O Futuro Chegou</h2>
-                <h1>A Era <span class="highlight">Audi</span></h1>
-                <p>A gigante alemã Audi entra oficialmente no grid. Bortoleto lidera essa nova era tecnológica com o objetivo claro: <strong>chegar ao topo do mundo</strong> e trazer o Brasil de volta ao pódio mais alto da F1.</p>
-                <div class="stats-grid">
-                    <div class="stat-card reveal">
-                        <div class="stat-icon">🏢</div>
-                        <span class="stat-number">Audi F1 Team</span>
-                        <span class="stat-label">Nova Equipe</span>
-                    </div>
-                    <div class="stat-card reveal">
-                        <div class="stat-icon">🤝</div>
-                        <span class="stat-number">Nico Hulkenberg</span>
-                        <span class="stat-label">Companheiro</span>
-                    </div>
-                    <div class="stat-card reveal">
-                        <div class="stat-icon">⚙️</div>
-                        <span class="stat-number">50% Elétrico, 50% Combustão</span>
-                        <span class="stat-label">Regulamento 2026</span>
-                    </div>
-                    <div class="stat-card reveal">
-                        <div class="stat-icon">🎯</div>
-                        <span class="stat-number">Crescer com a equipe.</span>
-                        <span class="stat-label">Objetivo</span>
-                    </div>
-                </div>
-                <div class="future-quote">
-                    <p>" Estamos indo na direção certa."</p>
-                    <cite>— Gabriel Bortoleto</cite>
-                </div>
+            <div class="timeline-header">
+                <div class="year-badge future-badge">2026+</div>
+                <h2 class="section-title">O FUTURO CHEGOU</h2>
+                <p class="section-subtitle">A ERA <span class="highlight">AUDI</span></p>
             </div>
-            <div class="visuals reveal">
-                <div class="img-wrapper">
-                    <div class="img-glow"></div>
-                    <img src="gabiaudi2026.jpg" alt="Audi 2026">
+            
+            <div class="timeline-grid">
+                <div class="timeline-content">
+                    <p class="timeline-text">A gigante alemã Audi entra oficialmente no grid da Fórmula 1. Bortoleto lidera essa nova era tecnológica com o objetivo claro: <strong>chegar ao topo do mundo</strong> e trazer o Brasil de volta ao pódio mais alto da F1.</p>
+                    
+                    <div class="stats-compact">
+                        <div class="stat-item">
+                            <div class="stat-ico">🏢</div>
+                            <div class="stat-info">
+                                <div class="stat-val">AUDI F1</div>
+                                <div class="stat-lbl">Nova Equipe</div>
+                            </div>
+                        </div>
+                        <div class="stat-item">
+                            <div class="stat-ico">🤝</div>
+                            <div class="stat-info">
+                                <div class="stat-val">Hülkenberg</div>
+                                <div class="stat-lbl">Companheiro</div>
+                            </div>
+                        </div>
+                        <div class="stat-item">
+                            <div class="stat-ico">⚙️</div>
+                            <div class="stat-info">
+                                <div class="stat-val">50/50</div>
+                                <div class="stat-lbl">Elétrico/Combustão</div>
+                            </div>
+                        </div>
+                        <div class="stat-item">
+                            <div class="stat-ico">🎯</div>
+                            <div class="stat-info">
+                                <div class="stat-val">CRESCER</div>
+                                <div class="stat-lbl">Objetivo</div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="quote-block">
+                        <p>"Estamos indo na direção certa."</p>
+                        <cite>— Gabriel Bortoleto</cite>
+                    </div>
                 </div>
-                <div class="team-logo">
-                    <img src="audi.webp" alt="Audi Logo">
+                
+                <div class="timeline-visual with-logo">
+                    <img src="gabiaudi2026.jpg" alt="Audi 2026">
+                    <div class="team-logo audi-logo">
+                        <img src="audi.webp" alt="Audi">
+                    </div>
                 </div>
             </div>
         </div>
     </section>
-
-    <footer>
-        <div class="footer-content">
-            <div class="footer-section">
-                <h3>Gabriel Bortoleto</h3>
-                <p>Piloto Brasileiro de Fórmula 1</p>
-                <p>Campeão F3 2023 | Campeão F2 2024</p>
-            </div>
-            <div class="footer-section">
-                <h3>Desenvolvido por</h3>
-                <div class="social-links">
-                    <a href="https://github.com/jotacazinho" target="_blank" aria-label="GitHub">
-                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="social-icon">
-                            <path d="M15 22v-4a4.8 4.8 0 0 0-1-3.5c3 0 6-2 6-5.5.08-1.25-.27-2.48-1-3.5.28-1.15.28-2.35 0-3.5 0 0-1 0-3 1.5-2.64-.5-5.36-.5-8 0C6 2 5 2 5 2c-.3 1.15-.3 2.35 0 3.5A5.403 5.403 0 0 0 4 9c0 3.5 3 5.5 6 5.5-.39.49-.68 1.05-.85 1.65-.17.6-.22 1.23-.15 1.85v4"></path>
-                            <path d="M9 18c-4.51 2-5-2-7-2"></path>
-                        </svg>
-                    </a>
-                    <a href="https://www.linkedin.com/in/jotacazinho/" target="_blank" aria-label="LinkedIn">
-                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="social-icon">
-                            <path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"></path>
-                            <rect width="4" height="12" x="2" y="9"></rect>
-                            <circle cx="4" cy="4" r="2"></circle>
-                        </svg>
-                    </a>
+    
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-col">
+                    <h3>GABRIEL BORTOLETO</h3>
+                    <p>Piloto Brasileiro de Fórmula 1</p>
+                    <p>Campeão F3 2023 | Campeão F2 2024</p>
+                    <p class="flag-text">🇧🇷 Orgulho do Brasil no grid mundial</p>
                 </div>
-                <p class="dev-name">@jotacazinho</p>
+                
+                <div class="footer-col">
+                    <h3>DESENVOLVIDO POR</h3>
+                    <p class="dev-name">@jotacazinho</p>
+                    <div class="social-row">
+                        <a href="https://github.com/jotacazinho" target="_blank" class="social-btn" aria-label="GitHub">
+                            <svg viewBox="0 0 24 24"><path d="M12 2C6.477 2 2 6.477 2 12c0 4.42 2.865 8.17 6.839 9.49.5.092.682-.217.682-.482 0-.237-.008-.866-.013-1.7-2.782.603-3.369-1.34-3.369-1.34-.454-1.156-1.11-1.463-1.11-1.463-.908-.62.069-.608.069-.608 1.003.07 1.531 1.03 1.531 1.03.892 1.529 2.341 1.087 2.91.831.092-.646.35-1.086.636-1.336-2.22-.253-4.555-1.11-4.555-4.943 0-1.091.39-1.984 1.029-2.683-.103-.253-.446-1.27.098-2.647 0 0 .84-.269 2.75 1.025A9.578 9.578 0 0112 6.836c.85.004 1.705.114 2.504.336 1.909-1.294 2.747-1.025 2.747-1.025.546 1.377.203 2.394.1 2.647.64.699 1.028 1.592 1.028 2.683 0 3.842-2.339 4.687-4.566 4.935.359.309.678.919.678 1.852 0 1.336-.012 2.415-.012 2.743 0 .267.18.578.688.48C19.137 20.167 22 16.418 22 12c0-5.523-4.477-10-10-10z"/></svg>
+                        </a>
+                        <a href="https://www.linkedin.com/in/jotacazinho/" target="_blank" class="social-btn" aria-label="LinkedIn">
+                            <svg viewBox="0 0 24 24"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
+                        </a>
+                    </div>
+                </div>
             </div>
-        </div>
-        <div class="footer-bottom">
-            <p>© 2026 Calebi José Batista | Site não oficial criado por fã</p>
-            <p class="footer-tag">Feito com amor e muito carinho pelo automobilismo brasileiro</p>
+            
+            <div class="footer-bottom">
+                <p>© 2026 Calebi José Batista | Site não oficial criado por fã</p>
+                <p>Feito com ❤️ e muito carinho pelo automobilismo brasileiro</p>
+            </div>
         </div>
     </footer>
-
-    <!-- voltar ao topo -->
-    <button class="scroll-to-top" aria-label="Voltar ao topo">
-        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-            <line x1="12" y1="19" x2="12" y2="5"></line>
-            <polyline points="5 12 12 5 19 12"></polyline>
-        </svg>
+    
+    <!-- Back to Top -->
+    <button class="back-to-top" id="backToTop" aria-label="Voltar ao topo">
+        ↑
     </button>
-
+    
     <script src="script.js"></script>
 </body>
 </html>
